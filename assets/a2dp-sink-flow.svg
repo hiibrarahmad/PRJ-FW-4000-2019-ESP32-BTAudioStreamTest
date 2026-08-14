@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0%" stop-color="#161616"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </radialGradient>
+    <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="900" height="700" fill="url(#bg)"/>
+
+  <text x="450" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#e8e8e8" letter-spacing="2">BLUETOOTH A2DP SINK</text>
+  <text x="450" y="98" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#7a7a7a" letter-spacing="1">CLASSIC BT · BLUEDROID STACK</text>
+
+  <!-- Phone -->
+  <g transform="translate(110,260)">
+    <rect x="0" y="0" width="90" height="160" rx="14" fill="#1b1b1b" stroke="#3a3a3a" stroke-width="2"/>
+    <rect x="10" y="16" width="70" height="112" rx="3" fill="#0c0c0e"/>
+    <circle cx="45" cy="144" r="6" fill="#3a3a3a"/>
+    <text x="45" y="-14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#c6c6c7">SOURCE DEVICE</text>
+  </g>
+
+  <!-- Bluetooth waves -->
+  <g transform="translate(260,300)" stroke="#00F0FF" fill="none" stroke-width="3" filter="url(#glowCyan)">
+    <path d="M0,40 Q30,0 60,40 Q30,80 0,40" opacity="0.9"/>
+    <path d="M75,40 Q105,-10 135,40 Q105,90 75,40" opacity="0.55"/>
+    <path d="M150,40 Q180,-20 210,40 Q180,100 150,40" opacity="0.3"/>
+  </g>
+  <text x="315" y="410" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#00F0FF" letter-spacing="1">A2DP STREAM</text>
+
+  <!-- ESP32 chip -->
+  <g transform="translate(500,250)">
+    <rect x="0" y="0" width="180" height="180" rx="10" fill="#141414" stroke="#00F0FF" stroke-width="2" filter="url(#glowCyan)"/>
+    <text x="90" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#00F0FF">ESP32</text>
+    <text x="90" y="95" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#9a9a9a">A2DP SINK</text>
+    <text x="90" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#9a9a9a">AVRCP CT</text>
+    <!-- pins -->
+    <g stroke="#4a4a4a" stroke-width="2">
+      <line x1="0" y1="30" x2="-16" y2="30"/><line x1="0" y1="60" x2="-16" y2="60"/>
+      <line x1="0" y1="90" x2="-16" y2="90"/><line x1="0" y1="120" x2="-16" y2="120"/>
+      <line x1="0" y1="150" x2="-16" y2="150"/>
+      <line x1="180" y1="45" x2="196" y2="45"/><line x1="180" y1="90" x2="196" y2="90"/>
+      <line x1="180" y1="135" x2="196" y2="135"/>
+    </g>
+  </g>
+
+  <!-- Device name label -->
+  <g transform="translate(500,470)">
+    <rect x="0" y="0" width="180" height="34" rx="4" fill="#1a1a1a" stroke="#333"/>
+    <text x="90" y="22" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#FF4D00">"ESP32-SPEAKER"</text>
+  </g>
+
+  <text x="450" y="640" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#5a5a5a" letter-spacing="1">PRJ-FW-4000 · ESP-IDF BLUEDROID</text>
+</svg>

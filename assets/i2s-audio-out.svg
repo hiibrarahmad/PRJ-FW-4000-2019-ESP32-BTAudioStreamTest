@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700">
+  <defs>
+    <radialGradient id="bg2" cx="50%" cy="40%" r="75%">
+      <stop offset="0%" stop-color="#161616"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </radialGradient>
+    <filter id="glowOrange" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="900" height="700" fill="url(#bg2)"/>
+
+  <text x="450" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700" fill="#e8e8e8" letter-spacing="2">I2S PCM AUDIO OUTPUT</text>
+  <text x="450" y="98" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#7a7a7a" letter-spacing="1">44.1kHz · 16-BIT · STEREO</text>
+
+  <!-- ESP32 chip -->
+  <g transform="translate(90,270)">
+    <rect x="0" y="0" width="150" height="150" rx="10" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="75" y="65" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="#e8e8e8">ESP32</text>
+    <text x="75" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#9a9a9a">I2S0 MASTER/TX</text>
+    <g stroke="#4a4a4a" stroke-width="2">
+      <line x1="150" y1="30" x2="166" y2="30"/><line x1="150" y1="60" x2="166" y2="60"/>
+      <line x1="150" y1="90" x2="166" y2="90"/>
+    </g>
+  </g>
+
+  <!-- I2S bus lines -->
+  <g transform="translate(256,295)" font-family="JetBrains Mono, monospace" font-size="12" fill="#FF4D00" stroke="#FF4D00" stroke-width="2" filter="url(#glowOrange)">
+    <line x1="0" y1="5" x2="140" y2="5"/><text x="70" y="-6" text-anchor="middle" stroke="none">BCLK · GPIO27</text>
+    <line x1="0" y1="35" x2="140" y2="35"/><text x="70" y="24" text-anchor="middle" stroke="none">LRCK · GPIO26</text>
+    <line x1="0" y1="65" x2="140" y2="65"/><text x="70" y="54" text-anchor="middle" stroke="none">DOUT · GPIO25</text>
+  </g>
+
+  <!-- DAC -->
+  <g transform="translate(430,285)">
+    <rect x="0" y="0" width="120" height="120" rx="8" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="60" y="55" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#e8e8e8">I2S DAC</text>
+    <text x="60" y="75" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#9a9a9a">/ AMP</text>
+    <g stroke="#4a4a4a" stroke-width="2"><line x1="120" y1="60" x2="136" y2="60"/></g>
+  </g>
+
+  <!-- Speaker -->
+  <g transform="translate(600,300)" stroke="#00F0FF" fill="none" stroke-width="2.5" filter="url(#glowCyan)">
+    <path d="M0,20 L20,20 L45,0 L45,90 L20,70 L0,70 Z" fill="#1b1b1b" stroke="#3a3a3a"/>
+    <path d="M60,20 Q85,45 60,70" opacity="0.85"/>
+    <path d="M75,5 Q112,45 75,85" opacity="0.5"/>
+    <path d="M90,-10 Q140,45 90,100" opacity="0.25"/>
+  </g>
+  <text x="660" y="440" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#00F0FF" letter-spacing="1">ANALOG OUT</text>
+
+  <text x="450" y="640" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#5a5a5a" letter-spacing="1">PRJ-FW-4000 · main.c :: i2s_init() / bt_app_a2d_data_cb()</text>
+</svg>
