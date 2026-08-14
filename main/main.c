@@ -1,3 +1,16 @@
+/*
+ * PRJ-FW-4000-2019-ESP32-BTAudioStreamTest
+ *
+ * Copyright (c) 2019 Ibrar Ahmad
+ * SPDX-License-Identifier: MIT
+ *
+ * Turns an ESP32 into a classic-Bluetooth (A2DP sink) speaker: it accepts
+ * an audio stream from a paired phone/PC and writes the decoded PCM straight
+ * out over I2S to an external DAC/amplifier, while AVRCP handles play/pause/
+ * volume feedback and track metadata. Written as a test of the ESP-IDF
+ * Bluedroid A2DP sink + I2S path — not a finished product.
+ */
+
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -31,7 +44,7 @@ void bt_avrc_ct_cb(esp_avrc_ct_cb_event_t event, esp_avrc_ct_cb_param_t *param)
 
     switch (event) {
         case ESP_AVRC_CT_CONNECTION_STATE_EVT:
-            ESP_LOGI(TAG, "📶 AVRCP connected");
+            ESP_LOGI(TAG, " AVRCP connected");
             if (param->conn_stat.connected) {
                 // Immediately request metadata.
                 esp_avrc_ct_send_metadata_cmd(0,
@@ -48,13 +61,13 @@ void bt_avrc_ct_cb(esp_avrc_ct_cb_event_t event, esp_avrc_ct_cb_param_t *param)
             ESP_LOGI(TAG, "Metadata Response, attr: %d", param->meta_rsp.attr_id);
             switch (param->meta_rsp.attr_id) {
                 case ESP_AVRC_MD_ATTR_TITLE:
-                    ESP_LOGI(TAG, "🎵 Title: %.*s", param->meta_rsp.attr_length, param->meta_rsp.attr_text);
+                    ESP_LOGI(TAG, " Title: %.*s", param->meta_rsp.attr_length, param->meta_rsp.attr_text);
                     break;
                 case ESP_AVRC_MD_ATTR_ARTIST:
-                    ESP_LOGI(TAG, "🎤 Artist: %.*s", param->meta_rsp.attr_length, param->meta_rsp.attr_text);
+                    ESP_LOGI(TAG, " Artist: %.*s", param->meta_rsp.attr_length, param->meta_rsp.attr_text);
                     break;
                 case ESP_AVRC_MD_ATTR_ALBUM:
-                    ESP_LOGI(TAG, "💿 Album: %.*s", param->meta_rsp.attr_length, param->meta_rsp.attr_text);
+                    ESP_LOGI(TAG, " Album: %.*s", param->meta_rsp.attr_length, param->meta_rsp.attr_text);
                     break;
                 default:
                     ESP_LOGI(TAG, "Unknown metadata attribute: %d", param->meta_rsp.attr_id);
@@ -68,11 +81,11 @@ void bt_avrc_ct_cb(esp_avrc_ct_cb_event_t event, esp_avrc_ct_cb_param_t *param)
                 case ESP_AVRC_RN_PLAY_STATUS_CHANGE: {
                     uint8_t play_status = param->change_ntf.event_parameter.playback;
                     if (play_status == ESP_AVRC_PLAYBACK_PLAYING)
-                        ESP_LOGI(TAG, "▶️ Playback: Playing");
+                        ESP_LOGI(TAG, " Playback: Playing");
                     else if (play_status == ESP_AVRC_PLAYBACK_PAUSED)
-                        ESP_LOGI(TAG, "⏸️ Playback: Paused");
+                        ESP_LOGI(TAG, " Playback: Paused");
                     else if (play_status == ESP_AVRC_PLAYBACK_STOPPED)
-                        ESP_LOGI(TAG, "⏹️ Playback: Stopped");
+                        ESP_LOGI(TAG, " Playback: Stopped");
                     else
                         ESP_LOGI(TAG, "Playback status: %d", play_status);
                     // Re-register to continue receiving updates.
@@ -83,11 +96,11 @@ void bt_avrc_ct_cb(esp_avrc_ct_cb_event_t event, esp_avrc_ct_cb_param_t *param)
                     uint8_t new_volume = param->change_ntf.event_parameter.volume;
                     int diff = (int)new_volume - (int)last_volume;
                     if (diff > 0)
-                        ESP_LOGI(TAG, "🔊 Volume increased by %d (from %d to %d)", diff, last_volume, new_volume);
+                        ESP_LOGI(TAG, " Volume increased by %d (from %d to %d)", diff, last_volume, new_volume);
                     else if (diff < 0)
-                        ESP_LOGI(TAG, "🔊 Volume decreased by %d (from %d to %d)", -diff, last_volume, new_volume);
+                        ESP_LOGI(TAG, " Volume decreased by %d (from %d to %d)", -diff, last_volume, new_volume);
                     else
-                        ESP_LOGI(TAG, "🔊 Volume unchanged: %d", new_volume);
+                        ESP_LOGI(TAG, " Volume unchanged: %d", new_volume);
                     last_volume = new_volume;
                     // Re-register for volume notifications.
                     esp_avrc_ct_send_register_notification_cmd(0, ESP_AVRC_RN_VOLUME_CHANGE, 0);
@@ -180,5 +193,5 @@ void app_main(void)
 
     ESP_ERROR_CHECK(esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE));
 
-    ESP_LOGI(TAG, "✅ Ready to pair and stream.");
+    ESP_LOGI(TAG, " Ready to pair and stream.");
 }
